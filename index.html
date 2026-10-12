@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#071b2b">
+<meta name="description" content="دفتر عملکرد درسی با تم گرند لاین">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Grand Line Study | دفتر عملکرد</title>
+<style>
+:root{--bg:#071b2b;--panel:#102d42;--panel2:#163b53;--gold:#f5c451;--red:#e45b4f;--text:#f4f7fb;--muted:#a9bdcc;--line:#2a4d63;--green:#68d6a4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#173b52 0,#071b2b 58%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+header{padding:24px 16px 18px;text-align:center;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e2b40dd,transparent)}
+.logo{font-size:12px;letter-spacing:2px;color:var(--gold);font-weight:800}.skull{font-size:36px;margin:5px}.title{font-size:25px;font-weight:900}.sub{color:var(--muted);font-size:13px;margin-top:6px}
+main{max-width:760px;margin:auto;padding:14px;display:grid;gap:14px}.card{background:linear-gradient(145deg,#123149,#0d2639);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 10px 28px #0002}
+h2{font-size:17px;margin:0 0 13px;color:var(--gold)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#071d2c;padding:12px 6px;border-radius:12px;text-align:center;border:1px solid #25475d}.stat strong{display:block;font-size:22px;color:var(--gold)}.stat span{font-size:11px;color:var(--muted)}
+form{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{display:grid;gap:5px;font-size:12px;color:var(--muted)}label.wide{grid-column:1/-1}input,select,textarea{width:100%;padding:11px;border-radius:10px;border:1px solid #35556a;background:#071d2c;color:var(--text);font:inherit;font-size:14px}textarea{min-height:68px;resize:vertical}
+button{border:0;border-radius:11px;padding:12px 14px;font:inherit;font-weight:800;cursor:pointer;background:var(--gold);color:#172431}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.secondary{background:#20455d;color:var(--text);border:1px solid #3a6077}.danger{background:#552b32;color:#ffd7d3;border:1px solid #8b4347}
+.item{padding:12px 0;border-bottom:1px solid var(--line);display:grid;gap:6px}.item:last-child{border-bottom:0}.itemtop{display:flex;justify-content:space-between;gap:8px;align-items:center}.itemtop strong{font-size:15px}.pill{font-size:11px;background:#25475d;padding:4px 8px;border-radius:99px;color:var(--gold);white-space:nowrap}.muted{color:var(--muted);font-size:12px}.barrow{display:grid;grid-template-columns:95px 1fr 35px;gap:8px;align-items:center;margin:10px 0;font-size:12px}.bar{height:10px;border-radius:20px;background:#071d2c;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:20px}.empty{color:var(--muted);text-align:center;padding:16px 0;font-size:13px}.footer{text-align:center;color:var(--muted);font-size:11px;padding:4px 10px 25px}
+@media(max-width:420px){.stats{grid-template-columns:repeat(3,1fr)}.stat strong{font-size:19px}form{grid-template-columns:1fr 1fr}.title{font-size:22px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">THE GRAND LINE • STUDY LOG</div>
+  <div class="skull">☠️</div>
+  <div class="title">دفتر عملکرد درسی</div>
+  <div class="sub">مسیرت رو ثبت کن؛ هر روز قوی‌تر شو، مثل خدمهٔ کلاه‌حصیری!</div>
+</header>
+<main>
+  <section class="card">
+    <h2>📊 آمار کلی</h2>
+    <div class="stats">
+      <div class="stat"><strong id="totalMin">۰</strong><span>دقیقه مطالعه</span></div>
+      <div class="stat"><strong id="totalTests">۰</strong><span>تست ثبت‌شده</span></div>
+      <div class="stat"><strong id="accuracy">—</strong><span>درصد درست</span></div>
+    </div>
+    <div class="actions">
+      <button id="exportCsv" class="secondary" type="button">خروجی CSV</button>
+      <button id="exportPdf" type="button">گزارش / چاپ PDF</button>
+      <button id="installBtn" class="secondary" type="button" hidden>نصب روی گوشی</button>
+    </div>
+    <p class="muted">اطلاعات روی همین دستگاه ذخیره می‌شود. برای PDF، گزینهٔ «ذخیره به‌صورت PDF» را در پنجرهٔ چاپ انتخاب کن.</p>
+  </section>
+  <section class="card">
+    <h2>📝 ثبت فعالیت جدید</h2>
+    <form id="studyForm">
+      <label>تاریخ<input id="date" type="date" required></label>
+      <label>درس
+        <select id="subject" required>
+          <option>فیزیک</option><option>زیست‌شناسی</option><option>ریاضی</option><option>شیمی</option><option>دینی</option><option>زبان انگلیسی</option><option>ادبیات</option><option>تاریخ</option><option>پاکنویس</option><option>سایر</option>
+        </select>
+      </label>
+      <label class="wide">مبحث / فعالیت<input id="topic" placeholder="مثلاً حرکت‌شناسی" required></label>
+      <label>ساعت شروع<input id="start" type="time"></label>
+      <label>ساعت پایان<input id="end" type="time"></label>
+      <label>مدت مطالعه (دقیقه)<input id="minutes" type="number" min="0" placeholder="خودکار از ساعت‌ها"></label>
+      <label>تعداد تست<input id="tests" type="number" min="0" value="0"></label>
+      <label>تست درست<input id="correct" type="number" min="0" value="0"></label>
+      <label>تسلط از ۱۰<input id="mastery" type="number" min="0" max="10" placeholder="اختیاری"></label>
+      <label>تمرکز از ۱۰<input id="focus" type="number" min="0" max="10" placeholder="اختیاری"></label>
+      <label class="wide">یادداشت<textarea id="notes" placeholder="نکته‌ها، دلیل اشتباه‌ها، کار بعدی..."></textarea></label>
+      <div class="wide"><button type="submit" style="width:100%">＋ ثبت فعالیت</button></div>
+    </form>
+  </section>
+  <section class="card">
+    <h2>🏴‍☠️ نمودار زمان مطالعه بر اساس درس</h2>
+    <div id="chart"></div>
+  </section>
+  <section class="card">
+    <h2>📚 فعالیت‌های ثبت‌شده</h2>
+    <div class="actions"><button id="todayBtn" class="secondary" type="button">فقط امروز</button><button id="allBtn" class="secondary" type="button">همهٔ فعالیت‌ها</button><button id="clearBtn" class="danger" type="button">پاک‌کردن همه</button></div>
+    <div id="entries"></div>
+  </section>
+</main>
+<div class="footer">Grand Line Study • نسخهٔ آفلاین‌پذیر برای گوشی</div>
+<script>
+const $=id=>document.getElementById(id);
+const fa=n=>Number(n||0).toLocaleString('fa-IR');
+const today=new Date(); $('date').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+let entries=JSON.parse(localStorage.getItem('grandLineEntries')||'[]'); let filter='all'; let installPrompt=null;
+function save(){localStorage.setItem('grandLineEntries',JSON.stringify(entries));render();}
+function durationFromTimes(){const s=$('start').value,e=$('end').value;if(s&&e){let [sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number);let d=eh*60+em-(sh*60+sm);if(d<0)d+=1440;$('minutes').value=d;}}
+$('start').addEventListener('change',durationFromTimes);$('end').addEventListener('change',durationFromTimes);
+$('studyForm').addEventListener('submit',e=>{e.preventDefault();const tests=+$('tests').value||0,correct=+$('correct').value||0;if(correct>tests){alert('تعداد تست درست نمی‌تواند از کل تست‌ها بیشتر باشد.');return}
+let mins=+$('minutes').value||0; if(!mins&&$('start').value&&$('end').value){durationFromTimes();mins=+$('minutes').value||0}
+entries.unshift({id:Date.now(),date:$('date').value,subject:$('subject').value,topic:$('topic').value.trim(),start:$('start').value,end:$('end').value,minutes:mins,tests,correct,mastery:$('mastery').value,focus:$('focus').value,notes:$('notes').value.trim()});save();$('topic').value='';$('tests').value=0;$('correct').value=0;$('mastery').value='';$('focus').value='';$('notes').value='';});
+function render(){const shown=filter==='today'?entries.filter(x=>x.date===$('date').value):entries;const mins=shown.reduce((a,x)=>a+(+x.minutes||0),0),tests=shown.reduce((a,x)=>a+(+x.tests||0),0),correct=shown.reduce((a,x)=>a+(+x.correct||0),0);$('totalMin').textContent=fa(mins);$('totalTests').textContent=fa(tests);$('accuracy').textContent=tests?Math.round(correct/tests*100).toLocaleString('fa-IR')+'٪':'—';
+let sums={};shown.forEach(x=>sums[x.subject]=(sums[x.subject]||0)+(+x.minutes||0));let max=Math.max(1,...Object.values(sums));$('chart').innerHTML=Object.keys(sums).length?Object.entries(sums).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="barrow"><span>${esc(k)}</span><div class="bar"><div class="fill" style="width:${v/max*100}%"></div></div><span>${fa(v)}</span></div>`).join(''):'<div class="empty">هنوز داده‌ای برای نمودار نیست.</div>';
+$('entries').innerHTML=shown.length?shown.map(x=>`<div class="item"><div class="itemtop"><strong>${esc(x.subject)} — ${esc(x.topic)}</strong><span class="pill">${fa(x.minutes)} دقیقه</span></div><div class="muted">${fa(x.date)}${x.start?' • '+esc(x.start):''}${x.end?' تا '+esc(x.end):''} • تست: ${fa(x.tests)} • درست: ${fa(x.correct)} • غلط: ${fa(Math.max(0,(+x.tests||0)-(+x.correct||0)))}</div><div class="muted">تسلط: ${x.mastery?fa(x.mastery)+'/۱۰':'—'} • تمرکز: ${x.focus?fa(x.focus)+'/۱۰':'—'}</div>${x.notes?`<div>${esc(x.notes)}</div>`:''}<div class="actions"><button class="danger" onclick="removeEntry(${x.id})">حذف این مورد</button></div></div>`).join(''):'<div class="empty">هنوز فعالیتی ثبت نشده؛ اولین مورد را اضافه کن!</div>';}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+window.removeEntry=id=>{if(confirm('این فعالیت حذف شود؟')){entries=entries.filter(x=>x.id!==id);save();}};
+$('todayBtn').onclick=()=>{filter='today';render()};$('allBtn').onclick=()=>{filter='all';render()};
+$('clearBtn').onclick=()=>{if(confirm('همهٔ اطلاعات این برنامه پاک شود؟ این کار قابل برگشت نیست.')){entries=[];save();}};
+$('exportCsv').onclick=()=>{const cols=['date','subject','topic','start','end','minutes','tests','correct','mastery','focus','notes'];const csv=[cols.join(','),...entries.map(x=>cols.map(k=>'"'+String(x[k]??'').replace(/"/g,'""')+'"').join(','))].join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'grand-line-study.csv');};
+function download(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
+$('exportPdf').onclick=()=>{const w=window.open('','_blank');if(!w){alert('اجازهٔ بازشدن پنجرهٔ چاپ را بده یا از منوی مرورگر چاپ را انتخاب کن.');return;}let rows=entries.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.subject)}</td><td>${esc(x.topic)}</td><td>${fa(x.minutes)}</td><td>${fa(x.tests)}</td><td>${fa(x.correct)}</td><td>${esc(x.focus||'—')}</td><td>${esc(x.mastery||'—')}</td></tr>`).join('');w.document.write(`<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><title>گزارش عملکرد درسی</title><style>body{font-family:Tahoma,Arial;padding:20px;color:#142635}h1{font-size:22px}p{color:#456}table{width:100%;border-collapse:collapse;font-size:12px}th,td{border:1px solid #9aabb5;padding:7px;text-align:center}th{background:#e5edf1}@media print{button{display:none}}</style><h1>گزارش عملکرد درسی — Grand Line</h1><p>زمان مطالعه: ${fa(entries.reduce((a,x)=>a+(+x.minutes||0),0))} دقیقه | تست: ${fa(entries.reduce((a,x)=>a+(+x.tests||0),0))}</p><table><thead><tr><th>تاریخ</th><th>درس</th><th>مبحث</th><th>دقیقه</th><th>کل تست</th><th>درست</th><th>تمرکز</th><th>تسلط</th></tr></thead><tbody>${rows}</tbody></table><p>برای ذخیره به PDF، در پنجرهٔ چاپ گزینهٔ Save as PDF را انتخاب کن.</p><script>window.onload=()=>setTimeout(()=>window.print(),300)<\/script></html>`);w.document.close();};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').hidden=false;});$('installBtn').onclick=async()=>{if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').hidden=true;}else alert('از منوی سه‌نقطهٔ Chrome گزینهٔ Add to Home screen / نصب برنامه را بزن.');};
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+render();
+</script>
+</body></html>

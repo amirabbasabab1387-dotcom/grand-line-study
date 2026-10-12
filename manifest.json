@@ -1,0 +1,15 @@
+{
+  "name": "Grand Line Study - دفتر عملکرد درسی",
+  "short_name": "Study Log",
+  "description": "دفتر ثبت مطالعه، تست‌ها، تمرکز و تسلط با تم گرند لاین",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071b2b",
+  "theme_color": "#071b2b",
+  "icons": [
+    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
